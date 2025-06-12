@@ -12,8 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import java.io.*;
 
 public class LectorVehiculos {
-    
-    
 
     // Método para cargar todos los registros del archivo de vehículos
     public static void cargarArchivo(DefaultTableModel modelo, String departamento) {

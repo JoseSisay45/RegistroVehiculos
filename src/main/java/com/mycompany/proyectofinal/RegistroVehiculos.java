@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 public class RegistroVehiculos extends javax.swing.JFrame {
     ListaVehiculos lista = new ListaVehiculos();
+  ListaVehiculosAVL listaAvl = new ListaVehiculosAVL();
 
     /**
      * Creates new form RegistroVehiculos
@@ -72,11 +73,16 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        LimpiarTablaAVL = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 255, 204));
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setForeground(new java.awt.Color(102, 0, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -97,17 +103,17 @@ public class RegistroVehiculos extends javax.swing.JFrame {
 
         MarcaVehiculo.setText("Marca Vehiculo");
         jPanel1.add(MarcaVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 90, 101, -1));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 87, 130, -1));
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 130, -1));
 
         Modelo.setText("Modelo");
-        jPanel1.add(Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 147, 69, -1));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 155, 150, -1));
+        jPanel1.add(Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 69, -1));
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 150, -1));
 
         Año.setText("Año");
-        jPanel1.add(Año, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 158, 37, -1));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 155, 71, -1));
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 205, 71, -1));
-        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 205, 71, -1));
+        jPanel1.add(Año, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 37, -1));
+        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 71, -1));
+        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 71, -1));
+        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 71, -1));
 
         RadioABB.setText("Arbol ABB");
         RadioABB.addActionListener(new java.awt.event.ActionListener() {
@@ -115,10 +121,15 @@ public class RegistroVehiculos extends javax.swing.JFrame {
                 RadioABBActionPerformed(evt);
             }
         });
-        jPanel1.add(RadioABB, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 24, 98, -1));
+        jPanel1.add(RadioABB, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 210, 98, -1));
 
         RadioAVL.setText("Arbol AVL");
-        jPanel1.add(RadioAVL, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 61, 98, -1));
+        RadioAVL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioAVLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(RadioAVL, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 460, 98, -1));
 
         InsertarRegistros.setText("Insertar");
         InsertarRegistros.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +145,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
                 BuscarRegistroActionPerformed(evt);
             }
         });
-        jPanel1.add(BuscarRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 147, 120, 40));
+        jPanel1.add(BuscarRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 120, 40));
 
         Eliminar.setText("Eliminar ");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +161,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
                 GuarddarActionPerformed(evt);
             }
         });
-        jPanel1.add(Guarddar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 110, 50));
+        jPanel1.add(Guarddar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 110, 50));
 
         Modificar.setText("Modificar");
         Modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +169,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
                 ModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 220, 90, 30));
+        jPanel1.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 90, 90, 30));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,11 +184,11 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 281, 651, 161));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 651, 161));
 
         jScrollPane2.setViewportView(jList1);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 310, 170, 180));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 170, 180));
 
         LimpiarTabla.setText("Limpiar Tabla");
         LimpiarTabla.addActionListener(new java.awt.event.ActionListener() {
@@ -185,10 +196,10 @@ public class RegistroVehiculos extends javax.swing.JFrame {
                 LimpiarTablaActionPerformed(evt);
             }
         });
-        jPanel1.add(LimpiarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(483, 491, 136, 46));
+        jPanel1.add(LimpiarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 420, 136, 46));
 
         Departamentos.setText("DEPARTAMENTOS");
-        jPanel1.add(Departamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 155, -1));
+        jPanel1.add(Departamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 155, -1));
 
         CargarArchivo.setText("Cargar Archivos");
         CargarArchivo.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +207,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
                 CargarArchivoActionPerformed(evt);
             }
         });
-        jPanel1.add(CargarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 507, 120, 30));
+        jPanel1.add(CargarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 120, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Antigua_Guatemala", "Chimaltenango", "Chiquimula", "Escuintla", "Guatemala", "Huehuetenango", "Peten", "Quetzaltenango", "San_Marcos", "Suchitepequez", " " }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -204,13 +215,40 @@ public class RegistroVehiculos extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 507, 150, 30));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 150, 30));
 
         jLabel2.setText("Multas");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
 
         jLabel3.setText("Traspaso");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Placa", "DPI", "Propietario", "MarcaVehiculo", "Modelo", "Año", "Multa", "Traspaso"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 650, 170));
+
+        jScrollPane4.setViewportView(jList2);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 170, 180));
+
+        LimpiarTablaAVL.setText("Limpiar Tabla AVL");
+        LimpiarTablaAVL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarTablaAVLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(LimpiarTablaAVL, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 710, 140, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,7 +258,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -228,11 +266,12 @@ public class RegistroVehiculos extends javax.swing.JFrame {
 
     private void BuscarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarRegistroActionPerformed
        
-     String departamento = jComboBox1.getSelectedItem().toString();
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-    modelo.setRowCount(0);
+   String departamento = jComboBox1.getSelectedItem().toString();
 
-    lista.buscarVehiculo(modelo, departamento,
+    // ABB
+    DefaultTableModel modeloABB = (DefaultTableModel) jTable1.getModel();
+    modeloABB.setRowCount(0);
+    lista.buscarVehiculo(modeloABB, departamento,
         jTextField1.getText(),
         jTextField2.getText(),
         jTextField3.getText(),
@@ -240,7 +279,18 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         jTextField5.getText(),
         jTextField6.getText());
 
-    if (modelo.getRowCount() == 0) {
+    // AVL
+    DefaultTableModel modeloAVL = (DefaultTableModel) jTable2.getModel();
+    modeloAVL.setRowCount(0);
+    listaAvl.buscarVehiculo(modeloAVL, departamento,
+        jTextField1.getText(),
+        jTextField2.getText(),
+        jTextField3.getText(),
+        jTextField4.getText(),
+        jTextField5.getText(),
+        jTextField6.getText());
+
+    if (modeloABB.getRowCount() == 0 && modeloAVL.getRowCount() == 0) {
         JOptionPane.showMessageDialog(this, "Elemento no encontrado, verifique los datos ingresados.", "Sin resultados", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_BuscarRegistroActionPerformed
@@ -252,6 +302,11 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
     String departamento = jComboBox1.getSelectedItem().toString();
     lista.cargarDesdeArchivo((DefaultTableModel) jTable1.getModel(), departamento);
+    
+    
+    lista.cargarDesdeArchivo((DefaultTableModel) jTable2.getModel(), departamento);
+    
+    
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
     private void LimpiarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarTablaActionPerformed
@@ -260,7 +315,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_LimpiarTablaActionPerformed
 
     private void InsertarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarRegistrosActionPerformed
-  DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
     String[] nuevo = new String[]{
         jTextField1.getText(),
@@ -278,6 +333,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_InsertarRegistrosActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+                                          
    int fila = jTable1.getSelectedRow();
 if (fila != -1) {
     lista.eliminarFila((DefaultTableModel) jTable1.getModel(), fila);
@@ -288,12 +344,13 @@ if (fila != -1) {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void GuarddarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarddarActionPerformed
+                                            
           String depto = jComboBox1.getSelectedItem().toString();
 lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
     }//GEN-LAST:event_GuarddarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-  int fila = jTable1.getSelectedRow();
+ int fila = jTable1.getSelectedRow();
     if (fila == -1) {
         JOptionPane.showMessageDialog(this, "❌ Seleccione una fila para modificar.");
     } else {
@@ -312,6 +369,18 @@ lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
 
     jList1.setModel(tiempos); // Mostrar los tiempos en el JList
     }//GEN-LAST:event_RadioABBActionPerformed
+
+    private void RadioAVLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioAVLActionPerformed
+       ArbolAVL avl = new ArbolAVL();
+DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+DefaultListModel<String> tiemposAVL = avl.medirTiemposDesdeTabla(modelo2);
+jList2.setModel(tiemposAVL);
+    }//GEN-LAST:event_RadioAVLActionPerformed
+
+    private void LimpiarTablaAVLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarTablaAVLActionPerformed
+        DefaultTableModel modeloTabla = (DefaultTableModel) jTable2.getModel();
+    modeloTabla.setRowCount(0);
+    }//GEN-LAST:event_LimpiarTablaAVLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,6 +427,7 @@ lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
     private javax.swing.JButton Guarddar;
     private javax.swing.JButton InsertarRegistros;
     private javax.swing.JButton LimpiarTabla;
+    private javax.swing.JButton LimpiarTablaAVL;
     private javax.swing.JLabel MarcaVehiculo;
     private javax.swing.JLabel Modelo;
     private javax.swing.JButton Modificar;
@@ -373,10 +443,14 @@ lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
