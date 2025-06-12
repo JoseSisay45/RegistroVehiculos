@@ -304,7 +304,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     lista.cargarDesdeArchivo((DefaultTableModel) jTable1.getModel(), departamento);
     
     
-    lista.cargarDesdeArchivo((DefaultTableModel) jTable2.getModel(), departamento);
+    listaAvl.cargarDesdeArchivo((DefaultTableModel) jTable2.getModel(), departamento);
     
     
     }//GEN-LAST:event_CargarArchivoActionPerformed
@@ -316,6 +316,8 @@ public class RegistroVehiculos extends javax.swing.JFrame {
 
     private void InsertarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarRegistrosActionPerformed
 DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+DefaultTableModel modeloAVL = (DefaultTableModel) jTable2.getModel();
+
 
     String[] nuevo = new String[]{
         jTextField1.getText(),
@@ -329,37 +331,66 @@ DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
     };
 
     lista.insertarDesdeCampos(modelo, nuevo);
+        listaAvl.insertarDesdeCampos(modeloAVL, nuevo);
+
     JOptionPane.showMessageDialog(this, "✅ Registro preparado. Presione GUARDAR para agregarlo al archivo.");
     }//GEN-LAST:event_InsertarRegistrosActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-   int fila = jTable1.getSelectedRow();
-if (fila != -1) {
-    lista.eliminarFila((DefaultTableModel) jTable1.getModel(), fila);
-    JOptionPane.showMessageDialog(this, "✅ Fila eliminada. Recuerda presionar GUARDAR.");
-} else {
-    JOptionPane.showMessageDialog(this, "❌ Selecciona una fila para eliminar.");
+   int fila1 = jTable1.getSelectedRow();
+    int fila2 = jTable2.getSelectedRow();
+
+    if (fila1 != -1) {
+        lista.eliminarFila((DefaultTableModel) jTable1.getModel(), fila1);
+    }
+
+    if (fila2 != -1) {
+        listaAvl.eliminarFila((DefaultTableModel) jTable2.getModel(), fila2);
+    }
+
+    if (fila1 == -1 && fila2 == -1) {
+        JOptionPane.showMessageDialog(this, "❌ Selecciona una fila para eliminar.");
+    } else {
+        JOptionPane.showMessageDialog(this, "✅ Fila eliminada. Recuerda presionar GUARDAR.");
     }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void GuarddarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarddarActionPerformed
                                                 
           String depto = jComboBox1.getSelectedItem().toString();
+          
 lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
+
+listaAvl.guardarEnArchivo((DefaultTableModel) jTable2.getModel(), depto);
+
     }//GEN-LAST:event_GuarddarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-                                         
-  int fila = jTable1.getSelectedRow();
-    if (fila == -1) {
+    int fila1 = jTable1.getSelectedRow();
+    int fila2 = jTable2.getSelectedRow();
+
+    if (fila1 == -1 && fila2 == -1) {
         JOptionPane.showMessageDialog(this, "❌ Seleccione una fila para modificar.");
-    } else {
+        return;
+    }
+
+    if (fila1 != -1) {
         String[] nuevosDatos = new String[8];
         for (int j = 0; j < 8; j++) {
-            nuevosDatos[j] = jTable1.getValueAt(fila, j).toString();
+            nuevosDatos[j] = jTable1.getValueAt(fila1, j).toString();
         }
-        lista.modificarFila((DefaultTableModel) jTable1.getModel(), fila, nuevosDatos);
+        lista.modificarFila((DefaultTableModel) jTable1.getModel(), fila1, nuevosDatos);
     }
+
+    if (fila2 != -1) {
+        String[] nuevosDatos = new String[8];
+        for (int j = 0; j < 8; j++) {
+            nuevosDatos[j] = jTable2.getValueAt(fila2, j).toString();
+        }
+        listaAvl.modificarFila((DefaultTableModel) jTable2.getModel(), fila2, nuevosDatos);
+    }
+
+    JOptionPane.showMessageDialog(this, "✅ Modifique la fila seleccionada. Luego presione GUARDAR.");
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void RadioABBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioABBActionPerformed
