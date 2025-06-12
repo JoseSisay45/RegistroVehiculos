@@ -266,12 +266,12 @@ public class RegistroVehiculos extends javax.swing.JFrame {
 
     private void BuscarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarRegistroActionPerformed
        
-   String departamento = jComboBox1.getSelectedItem().toString();
+   
+     String departamento = jComboBox1.getSelectedItem().toString();
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0);
 
-    // ABB
-    DefaultTableModel modeloABB = (DefaultTableModel) jTable1.getModel();
-    modeloABB.setRowCount(0);
-    lista.buscarVehiculo(modeloABB, departamento,
+    lista.buscarVehiculo(modelo, departamento,
         jTextField1.getText(),
         jTextField2.getText(),
         jTextField3.getText(),
@@ -279,18 +279,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         jTextField5.getText(),
         jTextField6.getText());
 
-    // AVL
-    DefaultTableModel modeloAVL = (DefaultTableModel) jTable2.getModel();
-    modeloAVL.setRowCount(0);
-    listaAvl.buscarVehiculo(modeloAVL, departamento,
-        jTextField1.getText(),
-        jTextField2.getText(),
-        jTextField3.getText(),
-        jTextField4.getText(),
-        jTextField5.getText(),
-        jTextField6.getText());
-
-    if (modeloABB.getRowCount() == 0 && modeloAVL.getRowCount() == 0) {
+    if (modelo.getRowCount() == 0) {
         JOptionPane.showMessageDialog(this, "Elemento no encontrado, verifique los datos ingresados.", "Sin resultados", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_BuscarRegistroActionPerformed
@@ -302,10 +291,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
     String departamento = jComboBox1.getSelectedItem().toString();
     lista.cargarDesdeArchivo((DefaultTableModel) jTable1.getModel(), departamento);
-    
-    
-    listaAvl.cargarDesdeArchivo((DefaultTableModel) jTable2.getModel(), departamento);
-    
+       
     
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
@@ -315,9 +301,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_LimpiarTablaActionPerformed
 
     private void InsertarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarRegistrosActionPerformed
-DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-DefaultTableModel modeloAVL = (DefaultTableModel) jTable2.getModel();
-
+ DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
     String[] nuevo = new String[]{
         jTextField1.getText(),
@@ -331,66 +315,38 @@ DefaultTableModel modeloAVL = (DefaultTableModel) jTable2.getModel();
     };
 
     lista.insertarDesdeCampos(modelo, nuevo);
-        listaAvl.insertarDesdeCampos(modeloAVL, nuevo);
-
     JOptionPane.showMessageDialog(this, "✅ Registro preparado. Presione GUARDAR para agregarlo al archivo.");
     }//GEN-LAST:event_InsertarRegistrosActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-   int fila1 = jTable1.getSelectedRow();
-    int fila2 = jTable2.getSelectedRow();
-
-    if (fila1 != -1) {
-        lista.eliminarFila((DefaultTableModel) jTable1.getModel(), fila1);
-    }
-
-    if (fila2 != -1) {
-        listaAvl.eliminarFila((DefaultTableModel) jTable2.getModel(), fila2);
-    }
-
-    if (fila1 == -1 && fila2 == -1) {
-        JOptionPane.showMessageDialog(this, "❌ Selecciona una fila para eliminar.");
-    } else {
-        JOptionPane.showMessageDialog(this, "✅ Fila eliminada. Recuerda presionar GUARDAR.");
+   int fila = jTable1.getSelectedRow();
+if (fila != -1) {
+    lista.eliminarFila((DefaultTableModel) jTable1.getModel(), fila);
+    JOptionPane.showMessageDialog(this, "✅ Fila eliminada. Recuerda presionar GUARDAR.");
+} else {
+    JOptionPane.showMessageDialog(this, "❌ Selecciona una fila para eliminar.");
     }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void GuarddarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarddarActionPerformed
-                                                
-          String depto = jComboBox1.getSelectedItem().toString();
-          
-lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
+         String depto = jComboBox1.getSelectedItem().toString();
 
-listaAvl.guardarEnArchivo((DefaultTableModel) jTable2.getModel(), depto);
-
+    lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
+    
+   
     }//GEN-LAST:event_GuarddarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-    int fila1 = jTable1.getSelectedRow();
-    int fila2 = jTable2.getSelectedRow();
-
-    if (fila1 == -1 && fila2 == -1) {
+int fila = jTable1.getSelectedRow();
+    if (fila == -1) {
         JOptionPane.showMessageDialog(this, "❌ Seleccione una fila para modificar.");
-        return;
-    }
-
-    if (fila1 != -1) {
+    } else {
         String[] nuevosDatos = new String[8];
         for (int j = 0; j < 8; j++) {
-            nuevosDatos[j] = jTable1.getValueAt(fila1, j).toString();
+            nuevosDatos[j] = jTable1.getValueAt(fila, j).toString();
         }
-        lista.modificarFila((DefaultTableModel) jTable1.getModel(), fila1, nuevosDatos);
+        lista.modificarFila((DefaultTableModel) jTable1.getModel(), fila, nuevosDatos);
     }
-
-    if (fila2 != -1) {
-        String[] nuevosDatos = new String[8];
-        for (int j = 0; j < 8; j++) {
-            nuevosDatos[j] = jTable2.getValueAt(fila2, j).toString();
-        }
-        listaAvl.modificarFila((DefaultTableModel) jTable2.getModel(), fila2, nuevosDatos);
-    }
-
-    JOptionPane.showMessageDialog(this, "✅ Modifique la fila seleccionada. Luego presione GUARDAR.");
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void RadioABBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioABBActionPerformed
