@@ -333,24 +333,24 @@ DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
     }//GEN-LAST:event_InsertarRegistrosActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-                                          
    int fila = jTable1.getSelectedRow();
 if (fila != -1) {
     lista.eliminarFila((DefaultTableModel) jTable1.getModel(), fila);
     JOptionPane.showMessageDialog(this, "✅ Fila eliminada. Recuerda presionar GUARDAR.");
 } else {
     JOptionPane.showMessageDialog(this, "❌ Selecciona una fila para eliminar.");
-}
+    }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void GuarddarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarddarActionPerformed
-                                            
+                                                
           String depto = jComboBox1.getSelectedItem().toString();
 lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
     }//GEN-LAST:event_GuarddarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
- int fila = jTable1.getSelectedRow();
+                                         
+  int fila = jTable1.getSelectedRow();
     if (fila == -1) {
         JOptionPane.showMessageDialog(this, "❌ Seleccione una fila para modificar.");
     } else {
