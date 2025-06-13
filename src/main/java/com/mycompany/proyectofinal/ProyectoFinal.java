@@ -12,7 +12,7 @@ public class ProyectoFinal {
 
     public static void main(String[] args) {
                // Crear una instancia del JFrame
-        RegistroVehiculos ventana = new RegistroVehiculos();
+        VentanaPrincipal ventana = new VentanaPrincipal();
         
         // Hacer visible el JFrame
         ventana.setVisible(true);
