@@ -266,12 +266,12 @@ public class RegistroVehiculos extends javax.swing.JFrame {
 
     private void BuscarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarRegistroActionPerformed
        
-   
-     String departamento = jComboBox1.getSelectedItem().toString();
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-    modelo.setRowCount(0);
+   String departamento = jComboBox1.getSelectedItem().toString();
 
-    lista.buscarVehiculo(modelo, departamento,
+    // ABB
+    DefaultTableModel modeloABB = (DefaultTableModel) jTable1.getModel();
+    modeloABB.setRowCount(0);
+    lista.buscarVehiculo(modeloABB, departamento,
         jTextField1.getText(),
         jTextField2.getText(),
         jTextField3.getText(),
@@ -279,7 +279,18 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         jTextField5.getText(),
         jTextField6.getText());
 
-    if (modelo.getRowCount() == 0) {
+    // AVL
+    DefaultTableModel modeloAVL = (DefaultTableModel) jTable2.getModel();
+    modeloAVL.setRowCount(0);
+    listaAvl.buscarVehiculo(modeloAVL, departamento,
+        jTextField1.getText(),
+        jTextField2.getText(),
+        jTextField3.getText(),
+        jTextField4.getText(),
+        jTextField5.getText(),
+        jTextField6.getText());
+
+    if (modeloABB.getRowCount() == 0 && modeloAVL.getRowCount() == 0) {
         JOptionPane.showMessageDialog(this, "Elemento no encontrado, verifique los datos ingresados.", "Sin resultados", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_BuscarRegistroActionPerformed
@@ -291,7 +302,10 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     private void CargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarArchivoActionPerformed
     String departamento = jComboBox1.getSelectedItem().toString();
     lista.cargarDesdeArchivo((DefaultTableModel) jTable1.getModel(), departamento);
-       
+    
+    
+    lista.cargarDesdeArchivo((DefaultTableModel) jTable2.getModel(), departamento);
+    
     
     }//GEN-LAST:event_CargarArchivoActionPerformed
 
@@ -301,7 +315,8 @@ public class RegistroVehiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_LimpiarTablaActionPerformed
 
     private void InsertarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarRegistrosActionPerformed
- DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+  
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
     String[] nuevo = new String[]{
         jTextField1.getText(),
@@ -316,10 +331,12 @@ public class RegistroVehiculos extends javax.swing.JFrame {
 
     lista.insertarDesdeCampos(modelo, nuevo);
     JOptionPane.showMessageDialog(this, "✅ Registro preparado. Presione GUARDAR para agregarlo al archivo.");
+    
     }//GEN-LAST:event_InsertarRegistrosActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-   int fila = jTable1.getSelectedRow();
+ 
+        int fila = jTable1.getSelectedRow();
 if (fila != -1) {
     lista.eliminarFila((DefaultTableModel) jTable1.getModel(), fila);
     JOptionPane.showMessageDialog(this, "✅ Fila eliminada. Recuerda presionar GUARDAR.");
@@ -329,15 +346,14 @@ if (fila != -1) {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void GuarddarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarddarActionPerformed
-         String depto = jComboBox1.getSelectedItem().toString();
+      String depto = jComboBox1.getSelectedItem().toString();
 
     lista.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), depto);
     
-   
     }//GEN-LAST:event_GuarddarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-int fila = jTable1.getSelectedRow();
+  int fila = jTable1.getSelectedRow();
     if (fila == -1) {
         JOptionPane.showMessageDialog(this, "❌ Seleccione una fila para modificar.");
     } else {
