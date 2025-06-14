@@ -15,12 +15,17 @@ import javax.swing.table.DefaultTableModel;
 
 public class ListaVehiculosAVL {
     
-    
     private NodoVehiculoAVL inicio = null;
     private NodoVehiculoAVL fin = null;
+    private ArbolAVL arbolAVL = new ArbolAVL();
+
+    public ArbolAVL getArbolAVL() {
+        return arbolAVL;
+    }
 
     public void cargarDesdeArchivo(DefaultTableModel modelo, String departamento) {
         limpiarLista();
+        arbolAVL = new ArbolAVL(); // Reiniciamos el árbol
         modelo.setRowCount(0);
         String ruta = "Departamentos/" + departamento + "/" + departamento + "_vehiculos.txt";
 
@@ -29,8 +34,10 @@ public class ListaVehiculosAVL {
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(",");
                 if (partes.length == 8) {
-                    insertar(new NodoVehiculoAVL(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5], partes[6], partes[7]));
+                    NodoVehiculoAVL nodo = new NodoVehiculoAVL(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5], partes[6], partes[7]);
+                    insertar(nodo);
                     modelo.addRow(partes);
+                    arbolAVL.insertar(partes);
                 }
             }
         } catch (IOException e) {
@@ -42,6 +49,7 @@ public class ListaVehiculosAVL {
         NodoVehiculoAVL nuevo = new NodoVehiculoAVL(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7]);
         insertar(nuevo);
         modelo.addRow(nuevo.aArray());
+        arbolAVL.insertar(datos);
     }
 
     public void modificarFila(DefaultTableModel modelo, int filaSeleccionada, String[] nuevosDatos) {
@@ -49,6 +57,9 @@ public class ListaVehiculosAVL {
             JOptionPane.showMessageDialog(null, " Seleccione una fila para modificar.");
             return;
         }
+        String placaOriginal = modelo.getValueAt(filaSeleccionada, 0).toString();
+        arbolAVL.eliminar(placaOriginal);
+        arbolAVL.insertar(nuevosDatos);
 
         for (int j = 0; j < 8; j++) {
             modelo.setValueAt(nuevosDatos[j], filaSeleccionada, j);
@@ -58,17 +69,19 @@ public class ListaVehiculosAVL {
 
     public void eliminarFila(DefaultTableModel modelo, int filaSeleccionada) {
         if (filaSeleccionada != -1) {
+            String placa = modelo.getValueAt(filaSeleccionada, 0).toString();
+            arbolAVL.eliminar(placa);
             modelo.removeRow(filaSeleccionada);
             JOptionPane.showMessageDialog(null, " Fila eliminada. Recuerde presionar GUARDAR para aplicar en archivo.");
         } else {
-            JOptionPane.showMessageDialog(null, " Seleccione una fila para eliminar.");
+            JOptionPane.showMessageDialog(null, "  Seleccione una fila para eliminar.");
         }
     }
 
     public void guardarEnArchivo(DefaultTableModel modelo, String departamento) {
         String ruta = "Departamentos/" + departamento + "/" + departamento + "_vehiculos.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ruta))) {
-            bw.write("Placa,DPI,Nombre,Marca,Modelo,Año,Multas,Traspasos");
+            bw.write("Placa,DPI,Nombre,Marca,Modelo,A\u00f1o,Multas,Traspasos");
             bw.newLine();
 
             for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -89,6 +102,7 @@ public class ListaVehiculosAVL {
 
     public void buscarVehiculo(DefaultTableModel modelo, String departamento, String placa, String dpi, String nombre, String marca, String modeloTexto, String anio) {
         limpiarLista();
+        arbolAVL = new ArbolAVL();
         modelo.setRowCount(0);
         String ruta = "Departamentos/" + departamento + "/" + departamento + "_vehiculos.txt";
 
@@ -111,6 +125,7 @@ public class ListaVehiculosAVL {
                 if (coincide) {
                     insertar(new NodoVehiculoAVL(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7]));
                     modelo.addRow(datos);
+                    arbolAVL.insertar(datos);
                 }
             }
         } catch (IOException e) {
@@ -131,5 +146,4 @@ public class ListaVehiculosAVL {
     private void limpiarLista() {
         inicio = fin = null;
     }
-    
-}
+} 

@@ -54,7 +54,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         Insertar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        Modificar = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
@@ -67,6 +67,8 @@ public class MultaVehiculos extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,13 +151,13 @@ public class MultaVehiculos extends javax.swing.JFrame {
         });
         jPanel1.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, -1, -1));
 
-        jButton1.setText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Modificar.setText("Modificar");
+        Modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
+        jPanel1.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
 
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +226,18 @@ public class MultaVehiculos extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jList2);
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 600, 140, -1));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 580, 140, -1));
+
+        jButton1.setText("Limpiar tabla");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 760, -1, -1));
+
+        Salir.setText("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 490, 80, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,6 +262,10 @@ public class MultaVehiculos extends javax.swing.JFrame {
           String departamento = jComboBox1.getSelectedItem().toString();
     listaMultas.cargarDesdeArchivo((DefaultTableModel) jTable1.getModel(), departamento);
     
+        listaMultas.cargarDesdeArchivo((DefaultTableModel) jTable2.getModel(), departamento);
+
+    
+  
     }//GEN-LAST:event_CargarMultasActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -265,7 +282,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_InsertarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         
          int fila = jTable1.getSelectedRow();
     if (fila != -1) {
@@ -277,7 +294,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
     }
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         
@@ -288,7 +305,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     
-        
+        // Pagar Multa
         int fila = jTable1.getSelectedRow();
     listaMultas.pagarMulta((DefaultTableModel) jTable1.getModel(), fila);
         
@@ -366,6 +383,16 @@ public class MultaVehiculos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        
+         VentanaPrincipal newframe = new VentanaPrincipal();//Instanseo con mi jframe
+        newframe.setVisible(true);
+        this.dispose();
+        
+        
+        
+    }//GEN-LAST:event_SalirActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -409,6 +436,8 @@ public class MultaVehiculos extends javax.swing.JFrame {
     private javax.swing.JButton Guardar;
     private javax.swing.JButton Insertar;
     private javax.swing.JButton Limpiar;
+    private javax.swing.JButton Modificar;
+    private javax.swing.JButton Salir;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;

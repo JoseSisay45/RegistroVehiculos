@@ -129,7 +129,7 @@ public void buscarMultas(DefaultTableModel modelo, String departamento,
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "❌ Error buscando en el archivo.");
+            JOptionPane.showMessageDialog(null, " Error buscando en el archivo.");
         }
     }
 

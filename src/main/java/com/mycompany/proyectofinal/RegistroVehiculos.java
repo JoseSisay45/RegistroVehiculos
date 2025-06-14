@@ -78,6 +78,7 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         LimpiarTablaAVL = new javax.swing.JButton();
+        Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 255, 204));
@@ -250,6 +251,14 @@ public class RegistroVehiculos extends javax.swing.JFrame {
         });
         jPanel1.add(LimpiarTablaAVL, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 710, 140, 40));
 
+        Salir.setText("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 720, 110, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -385,6 +394,14 @@ jList2.setModel(tiemposAVL);
     modeloTabla.setRowCount(0);
     }//GEN-LAST:event_LimpiarTablaAVLActionPerformed
 
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+
+        VentanaPrincipal newframe = new VentanaPrincipal();//Instanseo con mi jframe
+        newframe.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_SalirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -438,6 +455,7 @@ jList2.setModel(tiemposAVL);
     private javax.swing.JLabel Propietario;
     private javax.swing.JRadioButton RadioABB;
     private javax.swing.JRadioButton RadioAVL;
+    private javax.swing.JButton Salir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;

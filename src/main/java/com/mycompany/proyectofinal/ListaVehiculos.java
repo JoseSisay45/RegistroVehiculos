@@ -14,11 +14,17 @@ import javax.swing.table.DefaultTableModel;
 
 public class ListaVehiculos {
     
-     private NodoVehiculo inicio = null;
+    private NodoVehiculo inicio = null;
     private NodoVehiculo fin = null;
+    private ArbolABB arbolABB = new ArbolABB();
+
+    public ArbolABB getArbolABB() {
+        return arbolABB;
+    }
 
     public void cargarDesdeArchivo(DefaultTableModel modelo, String departamento) {
         limpiarLista();
+        arbolABB = new ArbolABB(); // Reiniciamos el árbol
         modelo.setRowCount(0);
         String ruta = "Departamentos/" + departamento + "/" + departamento + "_vehiculos.txt";
 
@@ -27,8 +33,10 @@ public class ListaVehiculos {
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(",");
                 if (partes.length == 8) {
-                    insertar(new NodoVehiculo(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5], partes[6], partes[7]));
+                    NodoVehiculo nodo = new NodoVehiculo(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5], partes[6], partes[7]);
+                    insertar(nodo);
                     modelo.addRow(partes);
+                    arbolABB.insertar(partes);
                 }
             }
         } catch (IOException e) {
@@ -40,6 +48,7 @@ public class ListaVehiculos {
         NodoVehiculo nuevo = new NodoVehiculo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7]);
         insertar(nuevo);
         modelo.addRow(nuevo.aArray());
+        arbolABB.insertar(datos);
     }
 
     public void modificarFila(DefaultTableModel modelo, int filaSeleccionada, String[] nuevosDatos) {
@@ -47,6 +56,9 @@ public class ListaVehiculos {
             JOptionPane.showMessageDialog(null, " Seleccione una fila para modificar.");
             return;
         }
+        String placaOriginal = modelo.getValueAt(filaSeleccionada, 0).toString();
+        arbolABB.eliminar(placaOriginal);
+        arbolABB.insertar(nuevosDatos);
 
         for (int j = 0; j < 8; j++) {
             modelo.setValueAt(nuevosDatos[j], filaSeleccionada, j);
@@ -56,6 +68,8 @@ public class ListaVehiculos {
 
     public void eliminarFila(DefaultTableModel modelo, int filaSeleccionada) {
         if (filaSeleccionada != -1) {
+            String placa = modelo.getValueAt(filaSeleccionada, 0).toString();
+            arbolABB.eliminar(placa);
             modelo.removeRow(filaSeleccionada);
             JOptionPane.showMessageDialog(null, " Fila eliminada. Recuerde presionar GUARDAR para aplicar en archivo.");
         } else {
@@ -87,6 +101,7 @@ public class ListaVehiculos {
 
     public void buscarVehiculo(DefaultTableModel modelo, String departamento, String placa, String dpi, String nombre, String marca, String modeloTexto, String anio) {
         limpiarLista();
+        arbolABB = new ArbolABB();
         modelo.setRowCount(0);
         String ruta = "Departamentos/" + departamento + "/" + departamento + "_vehiculos.txt";
 
@@ -109,6 +124,7 @@ public class ListaVehiculos {
                 if (coincide) {
                     insertar(new NodoVehiculo(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7]));
                     modelo.addRow(datos);
+                    arbolABB.insertar(datos);
                 }
             }
         } catch (IOException e) {
