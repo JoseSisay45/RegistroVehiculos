@@ -8,6 +8,7 @@ package com.mycompany.proyectofinal;
  *
  * @author Jose Sisay
  */
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class MultaVehiculos extends javax.swing.JFrame {
@@ -39,7 +40,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        BuscarMulta = new javax.swing.JButton();
         CargarMultas = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -88,8 +89,13 @@ public class MultaVehiculos extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Antigua_Guatemala", "Chimaltenango", "Chiquimula", "Escuintla", "Guatemala", "Huehuetenango", "Peten", "Quetzaltenango", "San_Marcos", "Suchitepequez", " " }));
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 340, -1, -1));
 
-        jButton2.setText("Buscar Multa");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 100, 30));
+        BuscarMulta.setText("Buscar Multa");
+        BuscarMulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarMultaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BuscarMulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 110, 30));
 
         CargarMultas.setText("Cargar Multas");
         CargarMultas.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +103,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
                 CargarMultasActionPerformed(evt);
             }
         });
-        jPanel1.add(CargarMultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 290, 100, 30));
+        jPanel1.add(CargarMultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 130, 40));
 
         jLabel1.setText("Placa");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 40, 20));
@@ -245,6 +251,23 @@ public class MultaVehiculos extends javax.swing.JFrame {
     modeloTabla.setRowCount(0);
     }//GEN-LAST:event_LimpiarActionPerformed
 
+    private void BuscarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarMultaActionPerformed
+        
+       String departamento = jComboBox1.getSelectedItem().toString();
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+    listaMultas.buscarMultas(modelo, departamento,
+        jTextField1.getText().trim(),
+        jTextField2.getText().trim(),
+        jTextField3.getText().trim(),
+        jTextField4.getText().trim(),
+        jTextField5.getText().trim());
+
+    if (modelo.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "❌ No se encontraron resultados. Verifique los datos ingresados.", "Sin resultados", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_BuscarMultaActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -282,13 +305,13 @@ public class MultaVehiculos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuscarMulta;
     private javax.swing.JButton CargarMultas;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton Guardar;
     private javax.swing.JButton Insertar;
     private javax.swing.JButton Limpiar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

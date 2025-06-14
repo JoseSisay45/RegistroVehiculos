@@ -36,10 +36,12 @@ public class ListaMultas {
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "❌ Error cargando archivo de multas.");
+            JOptionPane.showMessageDialog(null, " Error cargando archivo de multas.");
         }
     }
 
+    
+    
     public void insertarDesdeCampos(DefaultTableModel modelo, String[] datos) {
         NodoMulta nuevo = new NodoMulta(datos[0], datos[1], datos[2], datos[3], datos[4]);
         insertar(nuevo);
@@ -48,21 +50,21 @@ public class ListaMultas {
 
     public void modificarFila(DefaultTableModel modelo, int filaSeleccionada, String[] nuevosDatos) {
         if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "❌ Seleccione una fila para modificar.");
+            JOptionPane.showMessageDialog(null, "  Seleccione una fila para modificar.");
             return;
         }
         for (int j = 0; j < 5; j++) {
             modelo.setValueAt(nuevosDatos[j], filaSeleccionada, j);
         }
-        JOptionPane.showMessageDialog(null, "✅ Modifique la fila. Presione GUARDAR para aplicar cambios.");
+        JOptionPane.showMessageDialog(null, " Modifique la fila. Presione GUARDAR para aplicar cambios.");
     }
 
     public void eliminarFila(DefaultTableModel modelo, int filaSeleccionada) {
         if (filaSeleccionada != -1) {
             modelo.removeRow(filaSeleccionada);
-            JOptionPane.showMessageDialog(null, "✅ Fila eliminada. Presione GUARDAR para aplicar en archivo.");
+            JOptionPane.showMessageDialog(null, " Fila eliminada. Presione GUARDAR para aplicar en archivo.");
         } else {
-            JOptionPane.showMessageDialog(null, "❌ Seleccione una fila para eliminar.");
+            JOptionPane.showMessageDialog(null, "  Seleccione una fila para eliminar.");
         }
     }
 
@@ -70,9 +72,9 @@ public class ListaMultas {
     if (filaSeleccionada != -1) {
         modelo.setValueAt("Pagada", filaSeleccionada, 4); // Cambiar estado
         modelo.setValueAt("0", filaSeleccionada, 3);       // Cambiar monto a 0
-        JOptionPane.showMessageDialog(null, "✅ Multa pagada. Presione GUARDAR para aplicar los cambios.");
+        JOptionPane.showMessageDialog(null, " Multa pagada. Presione GUARDAR para aplicar los cambios.");
     } else {
-        JOptionPane.showMessageDialog(null, "❌ Seleccione una multa para marcar como pagada.");
+        JOptionPane.showMessageDialog(null, " Seleccione una multa para marcar como pagada.");
     }
 }
 
@@ -90,11 +92,48 @@ public class ListaMultas {
                 bw.write(sb.toString());
                 bw.newLine();
             }
-            JOptionPane.showMessageDialog(null, "✅ Cambios guardados en archivo TXT de multas.");
+            JOptionPane.showMessageDialog(null, " Cambios guardados en archivo TXT de multas.");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "❌ Error al guardar archivo de multas.");
+            JOptionPane.showMessageDialog(null, " Error al guardar archivo de multas.");
         }
     }
+    
+    
+    
+    
+public void buscarMultas(DefaultTableModel modelo, String departamento,
+                              String placa, String fecha, String descripcion, String monto, String estado) {
+        limpiarLista();
+        modelo.setRowCount(0);
+        String ruta = "Departamentos/" + departamento + "/" + departamento + "_multas.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            br.readLine(); // Saltar encabezado
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+                if (datos.length != 4) continue;
+
+                String estadoActual = (Double.parseDouble(datos[3]) > 0) ? "Pendiente" : "Pagado";
+
+                boolean coincide = true;
+                if (!placa.isEmpty() && !datos[0].equalsIgnoreCase(placa)) coincide = false;
+                if (!fecha.isEmpty() && !datos[1].equalsIgnoreCase(fecha)) coincide = false;
+                if (!descripcion.isEmpty() && !datos[2].toLowerCase().contains(descripcion.toLowerCase())) coincide = false;
+                if (!monto.isEmpty() && !datos[3].equalsIgnoreCase(monto)) coincide = false;
+                if (!estado.isEmpty() && !estadoActual.equalsIgnoreCase(estado)) coincide = false;
+
+                if (coincide) {
+                    insertar(new NodoMulta(datos[0], datos[1], datos[2], datos[3], estadoActual));
+                    modelo.addRow(new Object[]{datos[0], datos[1], datos[2], datos[3], estadoActual});
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "❌ Error buscando en el archivo.");
+        }
+    }
+
+    
 
     private void insertar(NodoMulta nodo) {
         if (inicio == null) {
