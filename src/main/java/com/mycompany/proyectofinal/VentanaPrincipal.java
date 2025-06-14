@@ -35,7 +35,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setBackground(new java.awt.Color(102, 0, 102));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Multas.setText("Multas");
         Multas.addActionListener(new java.awt.event.ActionListener() {
@@ -43,7 +42,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 MultasActionPerformed(evt);
             }
         });
-        jPanel1.add(Multas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 84, 37));
 
         Registro.setText("Resgistros");
         Registro.addActionListener(new java.awt.event.ActionListener() {
@@ -51,11 +49,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 RegistroActionPerformed(evt);
             }
         });
-        jPanel1.add(Registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 149, -1, 40));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("VENTANA PRINCIPAL");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 120, 30));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(Multas, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(Registro))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(Multas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(Registro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

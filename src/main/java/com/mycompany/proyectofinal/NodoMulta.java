@@ -12,15 +12,20 @@ package com.mycompany.proyectofinal;
 
 
 public class NodoMulta {
-    String placa, fecha, descripcion, monto;
-    String estado = "Pendiente"; // Por defecto
+ String placa;
+    String fecha;
+    String descripcion;
+    String monto;
+    String estado;
+
     NodoMulta anterior, siguiente;
 
-    public NodoMulta(String placa, String fecha, String descripcion, String monto) {
+    public NodoMulta(String placa, String fecha, String descripcion, String monto, String estado) {
         this.placa = placa;
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.monto = monto;
+        this.estado = estado;
     }
 
     public String[] aArray() {

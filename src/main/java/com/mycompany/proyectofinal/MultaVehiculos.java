@@ -52,6 +52,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
         Guardar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
+        Limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,20 +115,53 @@ public class MultaVehiculos extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 50, 20));
 
         Insertar.setText("Insertar");
+        Insertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InsertarActionPerformed(evt);
+            }
+        });
         jPanel1.add(Insertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
         Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, -1, -1));
 
         jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
 
         Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
         jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 80, 110, 40));
 
         jButton3.setText("Pagar Multa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
         jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 90, 20));
+
+        Limpiar.setText("Limpiar Tabla");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,15 +184,66 @@ public class MultaVehiculos extends javax.swing.JFrame {
 
     private void CargarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarMultasActionPerformed
         
-         String depto = jComboBox1.getSelectedItem().toString();
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-    listaMultas.cargarMultasDesdeArchivo(modelo, depto);
+          String departamento = jComboBox1.getSelectedItem().toString();
+    listaMultas.cargarDesdeArchivo((DefaultTableModel) jTable1.getModel(), departamento);
     
     }//GEN-LAST:event_CargarMultasActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
+
+         String[] datos = new String[] {
+        jTextField1.getText(), jTextField2.getText(), jTextField3.getText(),
+        jTextField4.getText(), jTextField5.getText()  // Estado
+    };
+    listaMultas.insertarDesdeCampos((DefaultTableModel) jTable1.getModel(), datos);
+        
+    }//GEN-LAST:event_InsertarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+         int fila = jTable1.getSelectedRow();
+    if (fila != -1) {
+        String[] nuevosDatos = new String[5];
+        for (int j = 0; j < 5; j++) {
+            nuevosDatos[j] = jTable1.getValueAt(fila, j).toString();
+        }
+        listaMultas.modificarFila((DefaultTableModel) jTable1.getModel(), fila, nuevosDatos);
+    }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        
+         int fila = jTable1.getSelectedRow();
+    listaMultas.eliminarFila((DefaultTableModel) jTable1.getModel(), fila);
+        
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    
+        
+        int fila = jTable1.getSelectedRow();
+    listaMultas.pagarMulta((DefaultTableModel) jTable1.getModel(), fila);
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+ 
+         String departamento = jComboBox1.getSelectedItem().toString();
+    listaMultas.guardarEnArchivo((DefaultTableModel) jTable1.getModel(), departamento);
+        
+        
+    }//GEN-LAST:event_GuardarActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+      DefaultTableModel modeloTabla = (DefaultTableModel) jTable1.getModel();
+    modeloTabla.setRowCount(0);
+    }//GEN-LAST:event_LimpiarActionPerformed
 
 
     /**
@@ -201,6 +286,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton Guardar;
     private javax.swing.JButton Insertar;
+    private javax.swing.JButton Limpiar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

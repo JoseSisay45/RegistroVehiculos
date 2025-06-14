@@ -34,7 +34,7 @@ public class ListaVehiculosAVL {
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "❌ Error cargando archivo.");
+            JOptionPane.showMessageDialog(null, " Error cargando archivo.");
         }
     }
 
@@ -46,22 +46,22 @@ public class ListaVehiculosAVL {
 
     public void modificarFila(DefaultTableModel modelo, int filaSeleccionada, String[] nuevosDatos) {
         if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "❌ Seleccione una fila para modificar.");
+            JOptionPane.showMessageDialog(null, " Seleccione una fila para modificar.");
             return;
         }
 
         for (int j = 0; j < 8; j++) {
             modelo.setValueAt(nuevosDatos[j], filaSeleccionada, j);
         }
-        JOptionPane.showMessageDialog(null, "✅ Modifique la fila seleccionada. Luego presione GUARDAR para aplicar cambios.");
+        JOptionPane.showMessageDialog(null, " Modifique la fila seleccionada. Luego presione GUARDAR para aplicar cambios.");
     }
 
     public void eliminarFila(DefaultTableModel modelo, int filaSeleccionada) {
         if (filaSeleccionada != -1) {
             modelo.removeRow(filaSeleccionada);
-            JOptionPane.showMessageDialog(null, "✅ Fila eliminada. Recuerde presionar GUARDAR para aplicar en archivo.");
+            JOptionPane.showMessageDialog(null, " Fila eliminada. Recuerde presionar GUARDAR para aplicar en archivo.");
         } else {
-            JOptionPane.showMessageDialog(null, "❌ Seleccione una fila para eliminar.");
+            JOptionPane.showMessageDialog(null, " Seleccione una fila para eliminar.");
         }
     }
 
@@ -81,9 +81,9 @@ public class ListaVehiculosAVL {
                 bw.newLine();
             }
 
-            JOptionPane.showMessageDialog(null, "✅ Cambios guardados correctamente en el archivo TXT.");
+            JOptionPane.showMessageDialog(null, " Cambios guardados correctamente en el archivo TXT.");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "❌ Error al guardar cambios.");
+            JOptionPane.showMessageDialog(null, " Error al guardar cambios.");
         }
     }
 
@@ -114,7 +114,7 @@ public class ListaVehiculosAVL {
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "❌ Error al buscar datos.");
+            JOptionPane.showMessageDialog(null, " Error al buscar datos.");
         }
     }
 
