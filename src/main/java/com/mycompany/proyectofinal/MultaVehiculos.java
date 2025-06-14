@@ -8,6 +8,11 @@ package com.mycompany.proyectofinal;
  *
  * @author Jose Sisay
  */
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -54,6 +59,14 @@ public class MultaVehiculos extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
         Limpiar = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,7 +100,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
         jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 120, 20));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Antigua_Guatemala", "Chimaltenango", "Chiquimula", "Escuintla", "Guatemala", "Huehuetenango", "Peten", "Quetzaltenango", "San_Marcos", "Suchitepequez", " " }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 340, -1, -1));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, -1, -1));
 
         BuscarMulta.setText("Buscar Multa");
         BuscarMulta.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +116,7 @@ public class MultaVehiculos extends javax.swing.JFrame {
                 CargarMultasActionPerformed(evt);
             }
         });
-        jPanel1.add(CargarMultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 130, 40));
+        jPanel1.add(CargarMultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 130, 40));
 
         jLabel1.setText("Placa");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 40, 20));
@@ -167,7 +180,51 @@ public class MultaVehiculos extends javax.swing.JFrame {
                 LimpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, -1, -1));
+        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, -1, -1));
+
+        jRadioButton1.setText("Multa ABB");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 270, -1, -1));
+
+        jScrollPane2.setViewportView(jList1);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 130, -1));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Placa", "Fecha", "Descripcion", "Monto", "Estado"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 550, 180));
+
+        jRadioButton2.setText("MUlta AVL");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 550, -1, -1));
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jList2);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 600, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,10 +236,9 @@ public class MultaVehiculos extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE))
         );
 
         pack();
@@ -268,6 +324,48 @@ public class MultaVehiculos extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_BuscarMultaActionPerformed
 
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+       
+        String departamento = jComboBox1.getSelectedItem().toString();
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0);
+
+    ArbolABB abb = new ArbolABB();
+
+    // Cargar desde archivo según departamento seleccionado
+    String ruta = "Departamentos/" + departamento + "/" + departamento + "_vehiculos.txt";
+
+    try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+        br.readLine(); // Saltar encabezado
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] partes = linea.split(",");
+            if (partes.length == 8) {
+                abb.insertar(partes);
+            }
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, " Error al leer el archivo del departamento: " + departamento);
+        return;
+    }
+
+    // Mostrar en tabla
+    abb.inOrden(modelo);
+
+    // Medir tiempos
+    DefaultListModel<String> tiempos = abb.medirTiemposDesdeTabla(modelo);
+    jList1.setModel(tiempos);
+
+    JOptionPane.showMessageDialog(this, "✅ Vehículos cargados en ABB y tiempos medidos correctamente.");
+
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+      
+       
+        
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -319,9 +417,17 @@ public class MultaVehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
