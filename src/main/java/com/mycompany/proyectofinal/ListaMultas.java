@@ -38,7 +38,7 @@ public class ListaMultas {
             }
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "❌ Error leyendo el archivo de multas");
+            JOptionPane.showMessageDialog(null, " Error leyendo el archivo de multas");
         }
     }
 
